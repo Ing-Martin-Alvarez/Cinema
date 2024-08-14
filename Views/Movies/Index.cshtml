@@ -1,0 +1,63 @@
+﻿@model IEnumerable<MvcMovie.Models.Movie>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Cinemas Yae</h1>
+
+<p>
+    <a asp-action="Create">Agregar a Cartelera</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Titulo<!--@Html.DisplayNameFor(model => model.Title)-->
+            </th>
+            <th>
+                Fecha de Estreno<!--@Html.DisplayNameFor(model => model.ReleaseDate)-->
+            </th>
+            <th>
+                Genero<!--@Html.DisplayNameFor(model => model.Genre)-->
+            </th>
+            <th>
+                Precio <!--@Html.DisplayNameFor(model => model.Price)-->
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Modificar</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<button id="btnImprimir">Imprimir en PDF</button>
+
+@section Scripts{
+    <script>
+        $("#btnImprimir").click(function () {
+            window.location.href = '@Url.Action("ExportToPDF", "Movies")';
+        });
+    </script>
+}
